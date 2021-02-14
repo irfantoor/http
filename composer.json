@@ -1,0 +1,31 @@
+{
+    "name": "irfantoor/http",
+    "description": "Psr Compliant HTTP suite for Hackers",
+    "keywords": [
+        "psr", "http", "request", "response", "server-request", 
+        "stream", "uri", "uploaded file", "factories", "hackable",
+        "for hackers"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Irfan TOOR",
+            "email": "email@irfantoor.com"
+        }
+    ],
+    "require": {
+        "irfantoor/collection": "~3.0",
+        "fig/http-message-util": "^1.1",
+        "psr/http-message": "^1.0",
+        "psr/http-factory": "^1.0"
+    },
+    "require-dev": {
+        "irfantoor/test": "^0.7.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "IrfanTOOR\\Http\\": "src"
+        }
+    }
+}
