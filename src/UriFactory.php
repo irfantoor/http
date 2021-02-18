@@ -13,8 +13,10 @@ class UriFactory implements UriFactoryInterface
         return new Uri($uri);
     }
 
-    public static function createFromEnvironment($env): UriInterface
+    public static function createFromEnvironment(array $env = []): UriInterface
     {
+        $env = new Environment($env);
+
         # scheme
         $is_https =
             (($env['HTTPS'] ?? 'off') !== 'off')

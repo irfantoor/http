@@ -3,6 +3,7 @@
 namespace IrfanTOOR\Http;
 
 use IrfanTOOR\Http\Cookie;
+use IrfanTOOR\Http\Environment;
 use IrfanTOOR\Http\Request;
 use IrfanTOOR\Http\StreamFactory;
 use IrfanTOOR\Http\UriFactory;
@@ -34,44 +35,10 @@ class ServerRequest extends Request implements ServerRequestInterface
 
     public function __construct(array $init = [])
     {
-        # Process $_SERVER and environment
-        $https =
-            (($init['HTTPS'] ?? 'off') !== 'off')
-            || (($init['REQUEST_SCHEME'] ?? 'http') === 'https')
-        ;
-
-        if ($https) {
-            $defscheme = 'https';
-            $defport = 443;
-        } else {
-            $defscheme = 'http';
-            $defport = 80;
-        }
+        $env = new Environment();
 
         $this->server = array_merge(
-            [
-                'SERVER_PROTOCOL'      => "HTTP/1.1",
-                'REQUEST_METHOD'       => "GET",
-                'REQUEST_SCHEME'       => $defscheme,
-                'SCRIPT_NAME'          => "",
-                'REQUEST_URI'          => "",
-                'QUERY_STRING'         => "",
-                'SERVER_NAME'          => "localhost",
-                'SERVER_PORT'          => $defport,
-                'HTTP_HOST'            => "localhost",
-                'HTTP_ACCEPT'          => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                'HTTP_ACCEPT_LANGUAGE' => "en-US,en;q=0.8",
-                'HTTP_ACCEPT_CHARSET'  => "ISO-8859-1,utf-8;q=0.7,*;q=0.3",
-                'HTTP_USER_AGENT'      => "Irfan's Engine",
-                'REMOTE_ADDR'          => "127.0.0.1",
-                'REQUEST_TIME'         => time(),
-                'REQUEST_TIME_FLOAT'   => microtime(true),
-            ],
-            $_SERVER,
-
-            # env is merged here for simplicity as ServerRequestInterface offers only
-            # getServerParams.
-            getenv(),
+            $env->toArray(),
             $init['server'] ?? [],
         );
 
@@ -79,7 +46,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         $init['method'] = $init['method'] ?? $this->server['REQUEST_METHOD'];
 
         # uri
-        $init['uri'] = $init['uri'] ?? UriFactory::createFromEnvironment($this->server);
+        $init['uri'] = $init['uri'] ?? UriFactory::createFromEnvironment();
 
         # Headers from $_SERVER => the keys starting with HTTP_
         $headers = [];

@@ -23,6 +23,11 @@
     "require-dev": {
         "irfantoor/test": "^0.7.6"
     },
+    "provide": {
+         "psr/http-message-implementation": "~1.0.1",
+         "psr/http-factory-implementation": "~1.0.10",
+         "fig/http-messsage-util-implementation": "~1.1.5"
+     },
     "autoload": {
         "psr-4": {
             "IrfanTOOR\\Http\\": "src"
