@@ -1,9 +1,12 @@
 # IrfanTOOR\Http
 
-Irfan's Http package is a hacker's Http suite which implements psr/http-factory and
-psr/http-message, eliminating the validations, so that you can audit your web apps
-or sites against vulnerabilities or can write small API's or testing utilities. You
-can forget about the constraints of validations.
+Irfan's Http package is a hacker's Http suite which implements psr/http-factory,
+psr/http-message and fig/http-message-util eliminating the validations part, so 
+that you can audit your web apps or sites against vulnerabilities or can write 
+small API's or testing utilities. 
+
+You can forget about the constraints of validations, while trying some innovative
+values for the Http Requests or Responses etc.
 
 ## Quick install.
 Use composer to include it in your package.
